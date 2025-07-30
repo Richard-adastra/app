@@ -7,22 +7,17 @@ export default function ClientDashboard() {
     <Layout>
       <h1 className="text-2xl font-bold mb-6">Client Dashboard</h1>
       <div className="grid grid-cols-2 gap-6">
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-semibold">Emails Sent</h2>
-          <p className="text-3xl font-bold">{stats.sent}</p>
-        </div>
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-semibold">Open Rate</h2>
-          <p className="text-3xl font-bold">{((stats.open / stats.sent) * 100).toFixed(1)}%</p>
-        </div>
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-semibold">Reply Rate</h2>
-          <p className="text-3xl font-bold">{((stats.replies / stats.sent) * 100).toFixed(1)}%</p>
-        </div>
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-semibold">Booked Calls</h2>
-          <p className="text-3xl font-bold">{stats.booked}</p>
-        </div>
+        {[
+          { label: "Emails Sent", value: stats.sent },
+          { label: "Open Rate", value: ((stats.open / stats.sent) * 100).toFixed(1) + "%" },
+          { label: "Reply Rate", value: ((stats.replies / stats.sent) * 100).toFixed(1) + "%" },
+          { label: "Booked Calls", value: stats.booked },
+        ].map((card, i) => (
+          <div key={i} className="bg-white shadow rounded-lg p-6">
+            <h2 className="text-lg font-semibold">{card.label}</h2>
+            <p className="text-3xl font-bold">{card.value}</p>
+          </div>
+        ))}
       </div>
     </Layout>
   );

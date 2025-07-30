@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Layout from "../../components/Layout";
 
 export default function AdminTasks() {
   const [tasks, setTasks] = useState<any[]>([]);
@@ -13,45 +14,35 @@ export default function AdminTasks() {
     setTasks(data);
   };
 
-  const approveTask = async (taskId: number) => {
-    await fetch("/api/tasks", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: taskId, status: "approved" }),
-    });
-
-    await fetch("/api/trigger-workflow", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ taskId }),
-    });
-
-    fetchTasks();
-  };
-
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Admin Tasks</h1>
-      <ul>
-        {tasks.map((task) => (
-          <li
-            key={task.id}
-            className="border p-2 mb-2 flex justify-between items-center"
-          >
-            <span>
-              Task #{task.id} – {task.status}
-            </span>
-            {task.status === "pending" && (
-              <button
-                onClick={() => approveTask(task.id)}
-                className="bg-green-600 text-white px-3 py-1 rounded"
-              >
-                Approve
-              </button>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Layout>
+      <h1 className="text-2xl font-bold mb-6">Admin Tasks</h1>
+      <div className="bg-white shadow rounded-lg p-6">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b bg-gray-50">
+              <th className="p-3 text-left">Task ID</th>
+              <th className="p-3 text-left">Status</th>
+              <th className="p-3 text-left">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tasks.map((task) => (
+              <tr key={task.id} className="border-b hover:bg-gray-50">
+                <td className="p-3">{task.id}</td>
+                <td className="p-3">{task.status}</td>
+                <td className="p-3">
+                  {task.status === "pending" && (
+                    <button className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">
+                      Approve
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Layout>
   );
 }

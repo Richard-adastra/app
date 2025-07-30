@@ -1,32 +1,29 @@
-import { useEffect, useState } from "react";
+import Layout from "../../components/Layout";
 
 export default function ClientDashboard() {
-  const [stats, setStats] = useState<any>({
-    sent: 0,
-    open: 0,
-    replies: 0,
-    booked: 0,
-  });
-
-  useEffect(() => {
-    // For now, just mock data
-    setStats({
-      sent: 1000,
-      open: 600,
-      replies: 200,
-      booked: 50,
-    });
-  }, []);
+  const stats = { sent: 1200, open: 800, replies: 200, booked: 50 };
 
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Client Dashboard</h1>
-      <ul className="space-y-2">
-        <li>Total Emails Sent: {stats.sent}</li>
-        <li>Open Rate: {((stats.open / stats.sent) * 100).toFixed(1)}%</li>
-        <li>Reply Rate: {((stats.replies / stats.sent) * 100).toFixed(1)}%</li>
-        <li>Booked Calls: {stats.booked}</li>
-      </ul>
-    </div>
+    <Layout>
+      <h1 className="text-2xl font-bold mb-6">Client Dashboard</h1>
+      <div className="grid grid-cols-2 gap-6">
+        <div className="bg-white shadow rounded-lg p-6">
+          <h2 className="text-lg font-semibold">Emails Sent</h2>
+          <p className="text-3xl font-bold">{stats.sent}</p>
+        </div>
+        <div className="bg-white shadow rounded-lg p-6">
+          <h2 className="text-lg font-semibold">Open Rate</h2>
+          <p className="text-3xl font-bold">{((stats.open / stats.sent) * 100).toFixed(1)}%</p>
+        </div>
+        <div className="bg-white shadow rounded-lg p-6">
+          <h2 className="text-lg font-semibold">Reply Rate</h2>
+          <p className="text-3xl font-bold">{((stats.replies / stats.sent) * 100).toFixed(1)}%</p>
+        </div>
+        <div className="bg-white shadow rounded-lg p-6">
+          <h2 className="text-lg font-semibold">Booked Calls</h2>
+          <p className="text-3xl font-bold">{stats.booked}</p>
+        </div>
+      </div>
+    </Layout>
   );
 }

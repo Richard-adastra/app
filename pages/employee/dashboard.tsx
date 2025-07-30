@@ -21,32 +21,43 @@ export default function EmployeeDashboard() {
 
   return (
     <Layout>
-      <h1 className="text-2xl font-bold mb-6">Employee Dashboard</h1>
-      <div className="bg-white shadow rounded-lg p-6">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+        Employee Dashboard
+      </h1>
+
+      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
         {leads.length === 0 ? (
-          <p>No leads found.</p>
+          <p className="text-gray-600 dark:text-gray-300">No leads found.</p>
         ) : (
           <table className="w-full border-collapse">
             <thead>
-              <tr className="border-b bg-gray-50">
-                <th className="p-3 text-left">Name</th>
-                <th className="p-3 text-left">Company</th>
-                <th className="p-3 text-left">Action</th>
+              <tr className="border-b bg-gray-50 dark:bg-gray-700">
+                <th className="p-3 text-left text-gray-700 dark:text-gray-200">
+                  Name
+                </th>
+                <th className="p-3 text-left text-gray-700 dark:text-gray-200">
+                  Company
+                </th>
+                <th className="p-3 text-left text-gray-700 dark:text-gray-200">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(leads) &&
-                leads.map((lead) => (
-                  <tr key={lead.id} className="border-b hover:bg-gray-50">
-                    <td className="p-3">{lead.fullName || "Unknown"}</td>
-                    <td className="p-3">{lead.companyName || "N/A"}</td>
-                    <td className="p-3">
-                      <button className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
-                        Send to Queue
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+              {leads.map((lead) => (
+                <tr
+                  key={lead.id}
+                  className="border-b hover:bg-gray-50 dark:hover:bg-gray-600"
+                >
+                  <td className="p-3">{lead.fullName || "Unknown"}</td>
+                  <td className="p-3">{lead.companyName || "N/A"}</td>
+                  <td className="p-3">
+                    <button className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
+                      Send to Queue
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         )}
